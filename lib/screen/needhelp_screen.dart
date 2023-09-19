@@ -8,8 +8,20 @@ class NeedHelp extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Container(
-          child: Text("help will be coming to you"),
-        ),
+            child: Column(
+          children: [
+            Text("help will be coming to you"),
+            SizedBox(
+              height: 30,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Go back!'),
+            ),
+          ],
+        )),
       ),
     );
   }

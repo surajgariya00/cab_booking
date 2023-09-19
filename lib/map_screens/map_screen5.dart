@@ -1,6 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:orbin/components/help_button.dart';
+import 'package:orbin/components/payment_method.dart';
+import 'package:orbin/components/primary_button.dart';
+import 'package:orbin/components/text_field.dart';
 
 class MapScreen5 extends StatefulWidget {
   const MapScreen5({super.key});
@@ -12,6 +16,23 @@ class MapScreen5 extends StatefulWidget {
 class _MapScreen5State extends State<MapScreen5> {
   bool isHovering = false;
   bool ishover = false;
+  PaymentMethod? _selectedPaymentMethod;
+
+  List<PaymentMethod> paymentMethods = [
+    PaymentMethod(
+      title: 'Cash',
+      iconData: Icons.credit_card,
+    ),
+    PaymentMethod(
+      title: 'UPI',
+      iconData: Icons.payment,
+    ),
+    PaymentMethod(
+      title: 'Credit/Debit card',
+      iconData: Icons.payment,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,9 +97,12 @@ class _MapScreen5State extends State<MapScreen5> {
                 children: [
                   CircleAvatar(
                       backgroundColor: Color(0xFFF2F3F6),
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: Color(0xFF344053),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                        ),
+                        onPressed: () => Navigator.pop(context),
                       )),
                   Spacer(),
                   CircleAvatar(
@@ -216,67 +240,24 @@ class _MapScreen5State extends State<MapScreen5> {
               SizedBox(
                 height: 15,
               ),
-              Row(
-                children: [
-                  Image.asset('assets/image 12.jpg'),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    'Cash',
-                    style: TextStyle(
-                      color: Color(0xFF344053),
-                      fontSize: 18,
-                      fontFamily: 'SF Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                  Spacer(),
-                  Icon(Icons.check)
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                children: [
-                  Image.asset('assets/image 13.jpg'),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    'UPI',
-                    style: TextStyle(
-                      color: Color(0xFF344053),
-                      fontSize: 18,
-                      fontFamily: 'SF Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                children: [
-                  Image.asset('assets/Credit.jpg'),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    'Credit/Debit card',
-                    style: TextStyle(
-                      color: Color(0xFF344053),
-                      fontSize: 18,
-                      fontFamily: 'SF Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ],
+              Container(
+                width: 350,
+                height: 150,
+                child: ListView.builder(
+                  itemCount: paymentMethods.length,
+                  itemBuilder: (context, index) {
+                    final method = paymentMethods[index];
+                    return PaymentMethodTile(
+                      method: method,
+                      isSelected: _selectedPaymentMethod == method,
+                      onTap: () {
+                        setState(() {
+                          _selectedPaymentMethod = method;
+                        });
+                      },
+                    );
+                  },
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -309,17 +290,7 @@ class _MapScreen5State extends State<MapScreen5> {
               SizedBox(
                 height: 18,
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Add your tip',
-                  filled: true,
-                  fillColor: Color(0xFFF2F3F6),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                ),
-              ),
+              CustomTextField(labelText: 'Add your tip'),
               SizedBox(
                 height: 10,
               ),
@@ -396,75 +367,13 @@ class _MapScreen5State extends State<MapScreen5> {
               SizedBox(
                 height: 25,
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, '/mapscreen6');
-                },
-                onHover: (hovering) {
-                  setState(() => isHovering = hovering);
-                },
-                child: AnimatedContainer(
-                  width: 400,
-                  height: 55,
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.ease,
-                  padding: EdgeInsets.all(isHovering ? 15 : 10),
-                  decoration: BoxDecoration(
-                    color: isHovering ? Color(0xFFFF5449) : Color(0xFFF2F3F6),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Search',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: isHovering
-                            ? Color.fromARGB(255, 255, 255, 255)
-                            : Color(0xFF344053),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              PrimaryButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/mapscreen6');
+                  },
+                  text: 'Continue'),
               Spacer(),
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, '/otp');
-                },
-                onHover: (hovering) {
-                  setState(() => ishover = hovering);
-                },
-                child: AnimatedContainer(
-                    width: 400,
-                    height: 55,
-                    duration: const Duration(milliseconds: 200),
-                    curve: Curves.ease,
-                    padding: EdgeInsets.all(ishover ? 15 : 10),
-                    decoration: BoxDecoration(
-                      color: ishover ? Color(0xFFFF5449) : Color(0xFFF2F3F6),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Help',
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: ishover
-                                ? Color.fromARGB(255, 255, 255, 255)
-                                : Color(0xFF344053),
-                          ),
-                        ),
-                        Spacer(),
-                        CircleAvatar(
-                            backgroundColor: Color(0xFFF2F3F6),
-                            child: Icon(
-                              Icons.arrow_forward,
-                              color: Color(0xFF344053),
-                            )),
-                      ],
-                    )),
-              ),
+              const HelpButton(),
               SizedBox(
                 height: 10,
               ),

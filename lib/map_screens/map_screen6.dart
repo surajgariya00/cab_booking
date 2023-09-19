@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:orbin/components/help_button.dart';
+import 'package:orbin/components/primary_button.dart';
 
 class MapScreen6 extends StatefulWidget {
   const MapScreen6({super.key});
@@ -240,36 +242,11 @@ class _MapScreen6State extends State<MapScreen6> {
                       ],
                     ),
                     Spacer(),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/otp');
-                      },
-                      onHover: (hovering) {
-                        setState(() => hover = hovering);
-                      },
-                      child: AnimatedContainer(
-                        width: 400,
-                        height: 55,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.ease,
-                        padding: EdgeInsets.all(hover ? 15 : 10),
-                        decoration: BoxDecoration(
-                          color: hover ? Color(0xFFFF5449) : Color(0xFFF2F3F6),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Finish Booking',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: hover
-                                  ? Color.fromARGB(255, 255, 255, 255)
-                                  : Color(0xFF344053),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    PrimaryButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/');
+                        },
+                        text: 'Finish Booking'),
                     SizedBox(
                       height: 10,
                     ),
@@ -308,45 +285,7 @@ class _MapScreen6State extends State<MapScreen6> {
                     SizedBox(
                       height: 10,
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/otp');
-                      },
-                      onHover: (hovering) {
-                        setState(() => ishover = hovering);
-                      },
-                      child: AnimatedContainer(
-                          width: 400,
-                          height: 55,
-                          duration: const Duration(milliseconds: 200),
-                          curve: Curves.ease,
-                          padding: EdgeInsets.all(ishover ? 15 : 10),
-                          decoration: BoxDecoration(
-                            color:
-                                ishover ? Color(0xFFFF5449) : Color(0xFFF2F3F6),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                'Help',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: ishover
-                                      ? Color.fromARGB(255, 255, 255, 255)
-                                      : Color(0xFF344053),
-                                ),
-                              ),
-                              Spacer(),
-                              CircleAvatar(
-                                  backgroundColor: Color(0xFFF2F3F6),
-                                  child: Icon(
-                                    Icons.arrow_forward,
-                                    color: Color(0xFF344053),
-                                  )),
-                            ],
-                          )),
-                    ),
+                    const HelpButton(),
                     SizedBox(
                       height: 10,
                     ),

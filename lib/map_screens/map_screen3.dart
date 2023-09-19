@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:orbin/components/help_button.dart';
+import 'package:orbin/components/primary_button.dart';
 
 class MapScreen3 extends StatefulWidget {
   const MapScreen3({super.key});
@@ -74,12 +76,14 @@ class _MapScreen3State extends State<MapScreen3> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
-                        backgroundColor: Color(0xFFF2F3F6),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.black,
-                        ),
-                      ),
+                          backgroundColor: Color(0xFFF2F3F6),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: Colors.black,
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                          )),
                       SizedBox(
                         height: 20,
                       ),
@@ -246,79 +250,13 @@ class _MapScreen3State extends State<MapScreen3> {
                       SizedBox(
                         height: 30,
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/mapscreen4');
-                        },
-                        onHover: (hovering) {
-                          setState(() => isHovering = hovering);
-                        },
-                        child: AnimatedContainer(
-                          width: 400,
-                          height: 55,
-                          duration: const Duration(milliseconds: 200),
-                          curve: Curves.ease,
-                          padding: EdgeInsets.all(isHovering ? 15 : 10),
-                          decoration: BoxDecoration(
-                            color: isHovering
-                                ? Color(0xFFFF5449)
-                                : Color(0xFFF2F3F6),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Search',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: isHovering
-                                    ? Color.fromARGB(255, 255, 255, 255)
-                                    : Color(0xFF344053),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      PrimaryButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/mapscreen4');
+                          },
+                          text: 'Search'),
                       Spacer(),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/otp');
-                        },
-                        onHover: (hovering) {
-                          setState(() => ishover = hovering);
-                        },
-                        child: AnimatedContainer(
-                            width: 400,
-                            height: 55,
-                            duration: const Duration(milliseconds: 200),
-                            curve: Curves.ease,
-                            padding: EdgeInsets.all(ishover ? 15 : 10),
-                            decoration: BoxDecoration(
-                              color: ishover
-                                  ? Color(0xFFFF5449)
-                                  : Color(0xFFF2F3F6),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'Help',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    color: ishover
-                                        ? Color.fromARGB(255, 255, 255, 255)
-                                        : Color(0xFF344053),
-                                  ),
-                                ),
-                                Spacer(),
-                                CircleAvatar(
-                                    backgroundColor: Color(0xFFF2F3F6),
-                                    child: Icon(
-                                      Icons.arrow_forward,
-                                      color: Color(0xFF344053),
-                                    )),
-                              ],
-                            )),
-                      ),
+                      const HelpButton(),
                       SizedBox(
                         height: 10,
                       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:orbin/components/primary_button.dart';
+import 'package:orbin/components/secondary_button.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -83,35 +85,19 @@ class _OtpScreenState extends State<OtpScreen> {
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                width: 350,
-                height: 35,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      backgroundColor: MaterialStateProperty.all(
-                        Color.fromARGB(255, 251, 79, 22),
-                      ),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)))),
-                  child: Text('Continue'),
-                ),
-              ),
+              PrimaryButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/mapscreen1');
+                  },
+                  text: 'Continue'),
               SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                width: 350,
-                height: 35,
-                child: ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all(
-                            const Color.fromARGB(255, 94, 93, 93)),
-                        backgroundColor: MaterialStateProperty.all(
-                            const Color.fromARGB(255, 226, 226, 226))),
-                    child: Text("Back")),
+              SecondaryButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                text: 'Back',
               )
             ],
           ),

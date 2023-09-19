@@ -1,6 +1,8 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:orbin/components/primary_button.dart';
+import 'package:orbin/components/secondary_button.dart';
 
 final _formkey = GlobalKey<FormState>();
 
@@ -120,39 +122,11 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 10,
               ),
-              InkWell(
-                onTap: () {
-                  if (_formkey.currentState!.validate()) {
-                    Navigator.pushNamed(context, '/otp');
-                  }
+              PrimaryButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/otp');
                 },
-                onHover: (hovering) {
-                  if (_formkey.currentState!.validate()) {
-                    setState(() => isHovering = hovering);
-                  }
-                },
-                child: AnimatedContainer(
-                  width: 400,
-                  height: 55,
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.ease,
-                  padding: EdgeInsets.all(isHovering ? 15 : 10),
-                  decoration: BoxDecoration(
-                    color: isHovering ? Color(0xFFFF5449) : Color(0xFFF2F3F6),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Continue',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: isHovering
-                            ? Color.fromARGB(255, 255, 255, 255)
-                            : Color.fromARGB(255, 0, 0, 0),
-                      ),
-                    ),
-                  ),
-                ),
+                text: 'Continue',
               ),
               SizedBox(
                 height: 10,

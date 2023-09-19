@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:orbin/screen/account_info.dart';
+import 'package:orbin/components/primary_button.dart';
+import 'package:orbin/components/text_field.dart';
 
 class MapScreen1 extends StatefulWidget {
   const MapScreen1({super.key});
@@ -17,7 +20,7 @@ class _MapScreen1State extends State<MapScreen1> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Text('Orbin',
+          title: const Text('Orbin',
               style: TextStyle(
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
@@ -48,10 +51,21 @@ class _MapScreen1State extends State<MapScreen1> {
               child: CircleAvatar(
                 backgroundColor: Color(0xFF2970FE),
                 child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ProfilePopup(
+                            name: 'Johnny', // Replace with actual user data
+                            email:
+                                'suraj@example.com', // Replace with actual user data
+                          );
+                        },
+                      );
+                    },
+                    icon: const Icon(
                       Icons.person,
-                      color: const Color.fromARGB(255, 250, 248, 248),
+                      color: Color.fromARGB(255, 250, 248, 248),
                     )),
               ),
             )
@@ -71,14 +85,14 @@ class _MapScreen1State extends State<MapScreen1> {
                 children: [
                   Row(
                     children: [
-                      Text('Rider detail',
+                      const Text('Rider detail',
                           style: TextStyle(
                             color: Color(0xFF344053),
                             fontSize: 30,
                             fontFamily: 'SF Pro',
                             fontWeight: FontWeight.w500,
                           )),
-                      Spacer(),
+                      const Spacer(),
                       SizedBox(
                         width: 140,
                         height: 40,
@@ -101,7 +115,7 @@ class _MapScreen1State extends State<MapScreen1> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -117,7 +131,7 @@ class _MapScreen1State extends State<MapScreen1> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
+                            const Row(
                               children: [
                                 Text(
                                   'Passenger 1',
@@ -133,10 +147,10 @@ class _MapScreen1State extends State<MapScreen1> {
                                 Icon(Icons.close)
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 35,
                             ),
-                            Text(
+                            const Text(
                               'Mobile number',
                               style: TextStyle(
                                 color: Color(0xFF475466),
@@ -146,7 +160,7 @@ class _MapScreen1State extends State<MapScreen1> {
                                 height: 0.10,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             InternationalPhoneNumberInput(
@@ -155,6 +169,8 @@ class _MapScreen1State extends State<MapScreen1> {
                                   phoneNumber = number;
                                 });
                               },
+                              searchBoxDecoration: const InputDecoration(
+                                  fillColor: Colors.grey, filled: true),
                               inputBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: const BorderSide(
@@ -165,10 +181,10 @@ class _MapScreen1State extends State<MapScreen1> {
                               ),
                               initialValue: phoneNumber,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
-                            Text(
+                            const Text(
                               'First name',
                               style: TextStyle(
                                 color: Color(0xFF475466),
@@ -178,24 +194,15 @@ class _MapScreen1State extends State<MapScreen1> {
                                 height: 0.10,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Enter first name',
-                                filled: true,
-                                fillColor: Color(0xFFF2F3F6),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
+                            const CustomTextField(
+                                labelText: 'Enter first name'),
+                            const SizedBox(
                               height: 20,
                             ),
-                            Text(
+                            const Text(
                               'Last name',
                               style: TextStyle(
                                 color: Color(0xFF475466),
@@ -205,57 +212,21 @@ class _MapScreen1State extends State<MapScreen1> {
                                 height: 0.10,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Enter last name',
-                                filled: true,
-                                fillColor: Color(0xFFF2F3F6),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                              ),
-                            )
+                            CustomTextField(labelText: 'Enter last name')
                           ]),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/mapscreen2');
-                    },
-                    onHover: (hovering) {
-                      setState(() => isHovering = hovering);
-                    },
-                    child: AnimatedContainer(
-                      width: 400,
-                      height: 55,
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.ease,
-                      padding: EdgeInsets.all(isHovering ? 15 : 10),
-                      decoration: BoxDecoration(
-                        color:
-                            isHovering ? Color(0xFFFF5449) : Color(0xFFF2F3F6),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Continue',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: isHovering
-                                ? Color.fromARGB(255, 255, 255, 255)
-                                : Color(0xFF344053),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  PrimaryButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/mapscreen2');
+                      },
+                      text: 'Continue')
                 ],
               ),
             ),
